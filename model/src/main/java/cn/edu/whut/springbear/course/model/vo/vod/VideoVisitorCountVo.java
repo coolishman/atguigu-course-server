@@ -12,11 +12,10 @@ import java.util.Date;
  */
 @Data
 public class VideoVisitorCountVo {
-    @ApiModelProperty(value = "进入时间")
+    @ApiModelProperty(value = "访问时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date joinTime;
+    private Date joinDate;
 
     @ApiModelProperty(value = "用户个数")
     private Integer userCount;
 }
-

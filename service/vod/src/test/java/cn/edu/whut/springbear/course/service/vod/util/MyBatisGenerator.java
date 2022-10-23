@@ -15,7 +15,7 @@ public class MyBatisGenerator {
 
         // 2、全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("D:\\Repository\\course-backend\\service\\vod" + "/src/main/java");
+        gc.setOutputDir("D:\\Repository\\course\\course-backend\\service\\vod" + "/src/main/java");
         // 去掉 Service 接口的首字母 I
         gc.setServiceName("%sService");
         gc.setAuthor("Spring-_-Bear");
@@ -44,7 +44,7 @@ public class MyBatisGenerator {
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("course", "course_description", "chapter", "video");
+        strategy.setInclude("video_visitor");
         // 数据库表映射到实体的命名策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 数据库表字段映射到实体的命名策略
