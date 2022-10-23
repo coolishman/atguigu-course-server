@@ -47,8 +47,7 @@ public class VideoController {
     @ApiOperation(value = "删除小节")
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
-
-        return videoService.removeById(id) ? Result.success("删除小节成功", null) : Result.fail("删除小节失败", null);
+        return videoService.deleteVideoById(id) ? Result.success("删除小节成功", null) : Result.fail("删除小节失败", null);
     }
 }
 

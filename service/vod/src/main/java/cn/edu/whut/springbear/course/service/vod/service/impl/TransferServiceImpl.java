@@ -3,7 +3,7 @@ package cn.edu.whut.springbear.course.service.vod.service.impl;
 
 import cn.edu.whut.springbear.course.service.vod.service.TransferService;
 import cn.edu.whut.springbear.course.service.vod.util.ConstantPropertiesUtils;
-import cn.edu.whut.springbear.course.service.vod.util.DateUtils;
+import cn.edu.whut.springbear.course.service.vod.util.FormatUtils;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -15,8 +15,6 @@ import com.qcloud.cos.region.Region;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.UUID;
-
 /**
  * @author Spring-_-Bear
  * @datetime 2022-10-21 09:31
@@ -27,13 +25,7 @@ public class TransferServiceImpl implements TransferService {
     public String fileUpload(MultipartFile file) {
         String region = ConstantPropertiesUtils.REGION;
         String bucket = ConstantPropertiesUtils.BUCKET;
-
-        // 文件重命名 key，作为腾讯云中文件的唯一标识，eg: 2022/10/21/74151d14e64c45699a94e2cb377b8414.png
-        String dateTodayStr = DateUtils.parseDateWithSlash();
-        String originalFilename = file.getOriginalFilename();
-        assert originalFilename != null;
-        String fileSuffix = originalFilename.substring(originalFilename.lastIndexOf('.'));
-        String key = dateTodayStr + "/" + UUID.randomUUID().toString().replaceAll("-", "") + fileSuffix;
+        String key = FormatUtils.uuidFileName(file, true);
 
         try {
             // 根据 id 和 key 生成验证对象

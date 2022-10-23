@@ -4,6 +4,7 @@ package cn.edu.whut.springbear.course.service.vod.controller;
 import cn.edu.whut.springbear.course.model.pojo.vod.Chapter;
 import cn.edu.whut.springbear.course.service.util.Result;
 import cn.edu.whut.springbear.course.service.vod.service.ChapterService;
+import cn.edu.whut.springbear.course.service.vod.service.VideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -27,6 +28,8 @@ import java.util.List;
 public class ChapterController {
     @Autowired
     private ChapterService chapterService;
+    @Autowired
+    private VideoService videoService;
 
     @ApiOperation("获取课程章节数据")
     @GetMapping("list/{courseId}")
@@ -58,6 +61,7 @@ public class ChapterController {
     @ApiOperation("删除章节")
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
+        videoService.deleteVideosOfChapter(id);
         return chapterService.removeById(id) ? Result.success("删除章节成功", null) : Result.fail("删除章节失败", null);
     }
 }
