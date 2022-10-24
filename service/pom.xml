@@ -13,6 +13,7 @@
     <modules>
         <module>vod</module>
         <module>gateway</module>
+        <module>order</module>
     </modules>
 
     <properties>

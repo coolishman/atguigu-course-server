@@ -13,7 +13,10 @@ spring:
           enabled: true
       routes:
         - id: course-service-vod
-          # 请求最终要被转发的地址
           uri: lb://course-service-vod
           predicates:
             - Path=/*/vod/**
+        - id: course-service-order
+          uri: lb://course-service-order
+          predicates:
+            - Path=/*/order/**
