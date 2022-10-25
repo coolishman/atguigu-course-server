@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Api(tags = "优惠券接口管理")
 @RestController
-@RequestMapping("/activity/coupon-info")
+@RequestMapping("/admin/activity/coupon")
 public class CouponController {
     @Autowired
     private CouponInfoService couponInfoService;

@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Spring-_-Bear
  * @since 2022-10-24
  */
-@Api(tags = "订单管理接口")
 @RestController
+@Api(tags = "订单管理接口")
 @RequestMapping("/admin/order")
 public class OrderController {
     @Autowired

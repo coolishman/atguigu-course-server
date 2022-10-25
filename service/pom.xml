@@ -15,6 +15,7 @@
         <module>order</module>
         <module>activity</module>
         <module>user</module>
+        <module>wechat</module>
     </modules>
 
     <properties>

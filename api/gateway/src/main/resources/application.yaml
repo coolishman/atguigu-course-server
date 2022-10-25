@@ -28,3 +28,7 @@ spring:
           uri: lb://course-service-user
           predicates:
             - Path=/*/user/**
+        - id: course-service-wechat
+          uri: lb://course-service-wechat
+          predicates:
+            - Path=/*/wechat/**
