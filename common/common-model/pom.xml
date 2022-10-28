@@ -3,19 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>course-backend</artifactId>
+        <artifactId>common</artifactId>
         <groupId>cn.edu.whut.springbear</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>common</artifactId>
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>common-model</module>
-        <module>common-util</module>
-    </modules>
+    <artifactId>common-model</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -24,16 +18,19 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
