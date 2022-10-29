@@ -147,7 +147,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     public List<Course> listCoursesByName(String courseName) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("title", courseName);
-        return baseMapper.selectList(queryWrapper);
+        // 查询每门课程的描述信息
+        List<Course> courses = baseMapper.selectList(queryWrapper);
+        for (Course course : courses) {
+            String description = courseDescriptionMapper.getDescriptionByCourseId(course.getId());
+            course.setDescription(description);
+        }
+        return courses;
     }
 
     @Override

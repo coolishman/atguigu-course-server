@@ -1,4 +1,4 @@
-package cn.edu.whut.springbear.course.common.util;
+package cn.edu.whut.springbear.course.common.util.alogrithm;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,7 +8,6 @@ import java.security.NoSuchAlgorithmException;
  * @datetime 2022-10-29 07:27
  */
 public class SHA1 {
-
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     private static String getFormattedText(byte[] bytes) {

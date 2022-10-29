@@ -1,4 +1,4 @@
-package cn.edu.whut.springbear.course.api.client.course;
+package cn.edu.whut.springbear.course.client.course;
 
 import cn.edu.whut.springbear.course.common.model.pojo.vod.Course;
 import org.springframework.cloud.openfeign.FeignClient;

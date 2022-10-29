@@ -1,4 +1,4 @@
-package cn.edu.whut.springbear.course.api.client.user;
+package cn.edu.whut.springbear.course.client.user;
 
 import cn.edu.whut.springbear.course.common.model.pojo.user.UserInfo;
 import org.springframework.cloud.openfeign.FeignClient;

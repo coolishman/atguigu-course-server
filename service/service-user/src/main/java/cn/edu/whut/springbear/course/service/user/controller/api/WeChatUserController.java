@@ -1,4 +1,4 @@
-package cn.edu.whut.springbear.course.service.user.controller;
+package cn.edu.whut.springbear.course.service.user.controller.api;
 
 import cn.edu.whut.springbear.course.service.user.service.WeChatService;
 import org.springframework.beans.factory.annotation.Autowired;

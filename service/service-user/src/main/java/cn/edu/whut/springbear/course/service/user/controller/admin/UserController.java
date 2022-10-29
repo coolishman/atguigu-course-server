@@ -1,11 +1,9 @@
-package cn.edu.whut.springbear.course.service.user.controller;
+package cn.edu.whut.springbear.course.service.user.controller.admin;
 
 
 import cn.edu.whut.springbear.course.common.util.Result;
-import cn.edu.whut.springbear.course.service.user.service.UserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +24,6 @@ import java.util.Map;
 @Api(tags = "用户管理接口")
 @RequestMapping("admin/user")
 public class UserController {
-    @Autowired
-    private UserInfoService userInfoService;
-
     @ApiOperation("用户登录")
     @PostMapping("login")
     public Result login() {
