@@ -19,6 +19,6 @@ public interface CourseFeignClient {
      * @param title 课程名称
      * @return 课程列表
      */
-    @GetMapping("admin/vod/course/list/{title}")
+    @GetMapping("feign/vod/course/list/{title}")
     List<Course> listCoursesByTitle(@PathVariable String title);
 }

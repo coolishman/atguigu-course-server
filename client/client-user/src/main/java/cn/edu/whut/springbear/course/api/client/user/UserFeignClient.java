@@ -17,6 +17,6 @@ public interface UserFeignClient {
      * @param id 用户 ID
      * @return 用户信息
      */
-    @GetMapping("admin/user/get/{id}")
+    @GetMapping("feign/user/get/{id}")
     UserInfo getUserById(@PathVariable Long id);
 }

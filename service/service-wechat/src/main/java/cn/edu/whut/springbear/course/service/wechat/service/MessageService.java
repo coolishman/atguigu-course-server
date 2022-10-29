@@ -30,4 +30,13 @@ public interface MessageService {
      * @return true：推送成功
      */
     boolean pushPayMessage();
+
+    /**
+     * 微信公众号签名验证（SHA1 算法加密验证）
+     *
+     * @param timestamp 微信后台传输的时间戳
+     * @param nonce     微信后台传输的参数
+     * @return 加密后的字符串
+     */
+    String checkWechatSignature(String timestamp, String nonce);
 }

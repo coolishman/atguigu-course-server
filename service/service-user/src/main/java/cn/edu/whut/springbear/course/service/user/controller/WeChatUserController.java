@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @datetime 2022-10-27 17:47
  */
 @Controller
-@RequestMapping("/api/user/wechat")
-public class WeChatController {
+@RequestMapping("/api/user")
+public class WeChatUserController {
     @Autowired
     private WeChatService weChatService;
 

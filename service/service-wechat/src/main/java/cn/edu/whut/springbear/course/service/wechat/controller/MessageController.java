@@ -16,7 +16,7 @@ import java.util.Map;
  * @datetime 2022-10-26 10:08
  */
 @RestController
-@RequestMapping("admin/wechat/message")
+@RequestMapping("api/wechat/message")
 public class MessageController {
     @Autowired
     private MessageService messageService;
@@ -30,10 +30,15 @@ public class MessageController {
     @GetMapping
     public String verifyToken(HttpServletRequest request) {
         /*
-         * TODO 进行微信 token 验证，验证通过则返回微信后台传入的 echostr 参数值，
-         *  需在微信公众号测试号中输入接口配置信息：URL 和 Token
+         * 微信公众号服务号绑定域名 token 验证，验证通过则返回微信后台传入的 echostr 参数值，
+         * 注：需在微信公众号测试号中输入接口配置信息：URL 和 Token
          */
-        return request.getParameter("echostr");
+        String signature = request.getParameter("signature");
+        String echostr = request.getParameter("echostr");
+        // SHA1 算法加密验证
+        String encryptedStr = messageService.checkWechatSignature(request.getParameter("timestamp"), request.getParameter("nonce"));
+        // 验证通过返回 echostr，否则返回空串
+        return signature.equals(encryptedStr) ? echostr : "";
     }
 
     /**

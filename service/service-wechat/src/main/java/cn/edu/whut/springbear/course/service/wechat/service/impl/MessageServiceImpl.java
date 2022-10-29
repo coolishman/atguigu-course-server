@@ -3,6 +3,7 @@ package cn.edu.whut.springbear.course.service.wechat.service.impl;
 
 import cn.edu.whut.springbear.course.api.client.course.CourseFeignClient;
 import cn.edu.whut.springbear.course.common.model.pojo.vod.Course;
+import cn.edu.whut.springbear.course.common.util.SHA1;
 import cn.edu.whut.springbear.course.service.wechat.service.MessageService;
 import com.alibaba.fastjson.JSONObject;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -36,6 +37,8 @@ public class MessageServiceImpl implements MessageService {
     private String liveCoursePath;
     @Value("${course.contactMe}")
     private String contactMe;
+    @Value("${wechat.token}")
+    private String wechatToken;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -159,7 +162,7 @@ public class MessageServiceImpl implements MessageService {
      * @return 格式化后的响应消息
      */
     private String searchCourse(String fromUser, String toUser, String keyword) {
-        // TODO 远程调用：根据课程关键字查询课程
+        // 远程调用：根据课程关键字查询课程
         List<Course> courseList = courseFeignClient.listCoursesByTitle(keyword);
         // 用户查询的课程信息不存在，返回普通文本消息
         if (courseList.isEmpty()) {
@@ -192,5 +195,20 @@ public class MessageServiceImpl implements MessageService {
         response.append("</Articles>");
         response.append("</xml>");
         return response.toString();
+    }
+
+    @Override
+    public String checkWechatSignature(String timestamp, String nonce) {
+        String[] str = new String[]{wechatToken, timestamp, nonce};
+        Arrays.sort(str);
+
+        // 拼接字符串
+        StringBuilder builder = new StringBuilder();
+        for (String s : str) {
+            builder.append(s);
+        }
+
+        // 进行 SHA1 算法字符串加密并返回加密后的字符串
+        return SHA1.encode(builder.toString());
     }
 }
