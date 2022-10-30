@@ -6,6 +6,7 @@ import cn.edu.whut.springbear.course.common.model.pojo.vod.CourseDescription;
 import cn.edu.whut.springbear.course.common.model.pojo.vod.Teacher;
 import cn.edu.whut.springbear.course.common.model.vo.vod.CourseFormVo;
 import cn.edu.whut.springbear.course.common.model.vo.vod.CourseQueryVo;
+import cn.edu.whut.springbear.course.common.util.NumberUtils;
 import cn.edu.whut.springbear.course.service.vod.mapper.CourseDescriptionMapper;
 import cn.edu.whut.springbear.course.service.vod.mapper.CourseMapper;
 import cn.edu.whut.springbear.course.service.vod.mapper.SubjectMapper;
@@ -159,6 +160,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
     @Override
     public Course getCourse(Long courseId) {
         Course course = this.getCourseDetails(courseId);
+        // 更新课程访问量
+        int views = NumberUtils.randomNumber(50);
+        course.setViewCount(course.getViewCount() + views);
+        baseMapper.updateById(course);
         // 获取课程大纲信息：一个课程包含多个章节，每个章节包含多个小节
         List<Chapter> chapters = chapterService.listChaptersOfCourse(courseId);
         course.setChapters(chapters);

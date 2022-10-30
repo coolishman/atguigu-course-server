@@ -15,4 +15,12 @@ public class DateUtils {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         return dateFormat.format(new Date());
     }
+
+    /**
+     * 将 java.util.Date 解析为 "2022-10-21" 格式
+     */
+    public static String parseDateWithHyphen() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(new Date());
+    }
 }

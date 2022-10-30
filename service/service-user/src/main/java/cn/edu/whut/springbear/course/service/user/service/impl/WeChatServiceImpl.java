@@ -42,8 +42,7 @@ public class WeChatServiceImpl implements WeChatService {
          * 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE
          * ================================================================
          */
-        // TODO from.replace()
-        return wxMpService.oauth2buildAuthorizationUrl(authorizedCallbackUrl, WxConsts.OAUTH2_SCOPE_USER_INFO, from.replace("placeholder", "#"));
+        return wxMpService.oauth2buildAuthorizationUrl(authorizedCallbackUrl, WxConsts.OAUTH2_SCOPE_USER_INFO, from);
     }
 
     @Override
@@ -71,16 +70,16 @@ public class WeChatServiceImpl implements WeChatService {
             userInfoService.save(user);
         }
 
+        // 根据 uid 和 nickname 生成 token 验证信息，有效期一天
         Map<String, Object> map = new HashMap<>();
-        map.put("uid", user.getOpenId());
+        map.put("uid", user.getId());
         map.put("nickname", user.getName());
-        // 根据 openId 和 nickname 生成 token 验证信息，有效期一天
         String token = JwtHelper.createToken(map, signKey, 24 * 60 * 60 * 1000L);
-        // TODO remove two lines
-        System.out.println(token);
+
+        // 替换 state 路径中的 placeholder：前端将路由路径中的 # 替换为 placeholder，此处将 placeholder 还原为 # 以支持前端路由组件的工作
+        state = state.replace("placeholder", "#");
         // 拼接 token 信息至 state 尾
         state = state.indexOf('?') == -1 ? state + "?token=" + token : state + "&token=" + token;
-        System.out.println(state);
         return state;
     }
 }

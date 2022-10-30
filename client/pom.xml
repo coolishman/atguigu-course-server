@@ -15,6 +15,7 @@
     <modules>
         <module>client-user</module>
         <module>client-course</module>
+        <module>client-activity</module>
     </modules>
 
     <properties>

@@ -1,6 +1,7 @@
 package cn.edu.whut.springbear.course.service.order.service;
 
 import cn.edu.whut.springbear.course.common.model.pojo.order.OrderInfo;
+import cn.edu.whut.springbear.course.common.model.vo.order.OrderFormVo;
 import cn.edu.whut.springbear.course.common.model.vo.order.OrderInfoQueryVo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -23,4 +24,12 @@ public interface OrderInfoService extends IService<OrderInfo> {
      * @return 订单分页数据
      */
     Page<OrderInfo> getOrderPageData(Integer curNum, Integer pageSize, OrderInfoQueryVo orderInfoQueryVo);
+
+    /**
+     * 创建点播课程订单并保存
+     *
+     * @param orderFormVo 订单表单 VO，包含课程 ID、优惠券 ID、优惠券领取表 ID
+     * @return 订单创建成功：返回生成的订单 ID
+     */
+    Long createOrder(OrderFormVo orderFormVo);
 }
