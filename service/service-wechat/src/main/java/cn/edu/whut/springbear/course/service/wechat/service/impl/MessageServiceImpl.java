@@ -185,7 +185,7 @@ public class MessageServiceImpl implements MessageService {
         List<Course> courseList = courseFeignClient.listCoursesByTitle(keyword);
         // 用户查询的课程信息不存在，返回普通文本消息
         if (courseList.isEmpty()) {
-            return this.textMessage(fromUser, toUser, "未查询到相关课程，请重新输入关键字");
+            return this.textMessage(fromUser, toUser, "未查询到相关课程，请重新输入");
         }
 
         // 时间戳：单位为秒

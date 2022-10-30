@@ -26,6 +26,8 @@ public class WeChatServiceImpl implements WeChatService {
     private UserInfoService userInfoService;
     @Value("${wechat.authorizedCallbackUrl}")
     private String authorizedCallbackUrl;
+    @Value("${token.signKey}")
+    private String signKey;
     @Autowired
     private WxMpService wxMpService;
 
@@ -33,10 +35,14 @@ public class WeChatServiceImpl implements WeChatService {
     public String wechatAuthorization(String from) {
         /*
          * 参数说明：
-         * 1. 用户同意授权后微信后台重定向的地址
-         * 2. 获取用户信息的方式
-         * 3. 用户最初请求的页面，将其封装在 state 中以在后续请求中传输，将源请求路径中的 placeholder 还原为 #，以支持前端路由组件工作
+         * redirectURI: 用户同意授权后微信后台重定向的地址
+         * scope: 获取用户信息的方式
+         * state: 重定向时携带的参数（此处用于记录用于最初请求的页面 url）
+         * ================================================================
+         * 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE
+         * ================================================================
          */
+        // TODO from.replace()
         return wxMpService.oauth2buildAuthorizationUrl(authorizedCallbackUrl, WxConsts.OAUTH2_SCOPE_USER_INFO, from.replace("placeholder", "#"));
     }
 
@@ -44,7 +50,7 @@ public class WeChatServiceImpl implements WeChatService {
     public String wechatUserRegister(String code, String state) {
         WxMpUser wxMpUser;
         try {
-            // 通过 code 票据换取 access_token 以读取微信用户信息
+            // 通过 code 票据换取凭证以读取微信用户信息
             wxMpUser = wxMpService.oauth2getUserInfo(wxMpService.oauth2getAccessToken(code), "zh_CN");
         } catch (WxErrorException e) {
             throw new CourseException(30000, e.getMessage());
@@ -65,12 +71,16 @@ public class WeChatServiceImpl implements WeChatService {
             userInfoService.save(user);
         }
 
-        // 根据 openId 和 nickname 生成 token 验证信息，返回到源请求页面即 state 所携带的值
         Map<String, Object> map = new HashMap<>();
         map.put("uid", user.getOpenId());
         map.put("nickname", user.getName());
-        String token = JwtHelper.createToken(map, "course", 24 * 60 * 60 * 1000L);
-        // 判断 state 中是否已经存在 key&val 信息
-        return state.indexOf('?') == -1 ? state + "?token=" + token : state + "&token=" + token;
+        // 根据 openId 和 nickname 生成 token 验证信息，有效期一天
+        String token = JwtHelper.createToken(map, signKey, 24 * 60 * 60 * 1000L);
+        // TODO remove two lines
+        System.out.println(token);
+        // 拼接 token 信息至 state 尾
+        state = state.indexOf('?') == -1 ? state + "?token=" + token : state + "&token=" + token;
+        System.out.println(state);
+        return state;
     }
 }

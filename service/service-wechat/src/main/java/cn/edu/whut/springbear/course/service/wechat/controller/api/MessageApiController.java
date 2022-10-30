@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("api/wechat/message")
-public class MessageController {
+public class MessageApiController {
     @Autowired
     private MessageService messageService;
 
