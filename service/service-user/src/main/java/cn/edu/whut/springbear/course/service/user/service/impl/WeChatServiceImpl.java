@@ -22,14 +22,16 @@ import java.util.Map;
  */
 @Service
 public class WeChatServiceImpl implements WeChatService {
-    @Autowired
-    private UserInfoService userInfoService;
     @Value("${wechat.authorizedCallbackUrl}")
     private String authorizedCallbackUrl;
     @Value("${token.signKey}")
     private String signKey;
+
     @Autowired
     private WxMpService wxMpService;
+    @Autowired
+    private UserInfoService userInfoService;
+
 
     @Override
     public String wechatAuthorization(String from) {

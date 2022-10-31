@@ -13,8 +13,8 @@ public class LoginMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 用户登录拦截器拦截以 api 开头的请求，也即移动端 course-mobile 的所有请求，排除微信消息请求、微信用户验证请求
-        registry.addInterceptor(new UserLoginInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/user/**", "/api/wechat/**");
+        registry.addInterceptor(new UserLoginInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/user/**", "/api/wechat/message");
         // 管理员登录拦截器拦截以 admin 开头的请求，也即后台管理系统 course-frontend 的所有请求
-        registry.addInterceptor(new AdminLoginInterceptor()).addPathPatterns("/admin/**");
+        // registry.addInterceptor(new AdminLoginInterceptor()).addPathPatterns("/admin/**");
     }
 }

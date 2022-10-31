@@ -10,6 +10,7 @@ import cn.edu.whut.springbear.course.common.model.pojo.user.UserInfo;
 import cn.edu.whut.springbear.course.common.model.pojo.vod.Course;
 import cn.edu.whut.springbear.course.common.model.vo.order.OrderFormVo;
 import cn.edu.whut.springbear.course.common.model.vo.order.OrderInfoQueryVo;
+import cn.edu.whut.springbear.course.common.model.vo.order.OrderInfoVo;
 import cn.edu.whut.springbear.course.common.util.NumberUtils;
 import cn.edu.whut.springbear.course.common.util.exception.CourseException;
 import cn.edu.whut.springbear.course.common.util.interceptor.AuthContextHolder;
@@ -21,11 +22,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -99,7 +102,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderInfo.setFinalAmount(orderInfo.getOriginAmount().subtract(orderInfo.getCouponReduce()));
         orderInfo.setOutTradeNo(NumberUtils.orderNumber());
         orderInfo.setTradeBody(course.getTitle());
-        orderInfo.setOrderStatus("0");
+        orderInfo.setOrderStatus("UNPAID");
         this.save(orderInfo);
         // 保存订单详情
         orderDetail = new OrderDetail();
@@ -156,5 +159,36 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
         page.setRecords(records);
         return page;
+    }
+
+    @Override
+    public OrderInfoVo getOrderInfoVoById(Long orderId) {
+        OrderInfo orderInfo = this.getById(orderId);
+        OrderDetail orderDetail = orderDetailService.getById(orderId);
+
+        OrderInfoVo orderInfoVo = new OrderInfoVo();
+        BeanUtils.copyProperties(orderInfo, orderInfoVo);
+        orderInfoVo.setCourseId(orderDetail.getCourseId());
+        orderInfoVo.setCover(orderDetail.getCover());
+        orderInfoVo.setCourseName(orderDetail.getCourseName());
+        return orderInfoVo;
+    }
+
+    @Override
+    public boolean updateOrder(String tradeNumber) {
+        // 根据 out_trade_no 查询订单
+        LambdaQueryWrapper<OrderInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(OrderInfo::getOutTradeNo, tradeNumber);
+        OrderInfo orderInfo = baseMapper.selectOne(wrapper);
+        // 更新订单状态为已支付
+        orderInfo.setOrderStatus("PAID");
+        orderInfo.setPayTime(new Date());
+        return baseMapper.updateById(orderInfo) == 1;
+    }
+
+    @Override
+    public String payStatus(Long userId, Long courseId) {
+        OrderInfo orderOfUser = baseMapper.getOrderOfUser(userId, courseId);
+        return orderOfUser.getOrderStatus();
     }
 }

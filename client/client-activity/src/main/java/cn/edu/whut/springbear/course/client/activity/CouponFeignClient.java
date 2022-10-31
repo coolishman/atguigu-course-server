@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 @FeignClient(value = "course-service-activity")
 public interface CouponFeignClient {
-
     /**
      * 查询优惠券
      *
