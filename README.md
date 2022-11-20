@@ -1,10 +1,15 @@
 > 开发时间：2022.10.17 - 2022.11.04
 
+> 服务端：[atguigu-course-backend](https://github.com/springbear2020/atguigu-course-backend)
+> 后台管理系统：[atguigu-course-frontend](https://github.com/springbear2020/atguigu-course-frontend)
+> 移动端微信公众号：[atguigu-course-mobile](https://github.com/springbear2020/atguigu-course-mobile)
+
+
 # 一、快速开始
 
 ## 1.1 服务器
 
-1. 克隆仓库：使用 `Git` 克隆仓库或直接下载仓库压缩包到您的计算机：[https://github.com/springbear2020/course-backend](https://github.com/springbear2020/course-backend)
+1. 克隆仓库：使用 `Git` 克隆仓库或直接下载仓库压缩包到您的计算机：[https://github.com/springbear2020/atguigu-course-backend](https://github.com/springbear2020/atguigu-course-backend)
 
 2. 打开工程：使用 `IntelliJ IDEA` 打开克隆的仓库或解压的工程文件，而后使用 `Maven` 工具更新父工程 `course-backend` 依赖
 
@@ -93,7 +98,7 @@
 
 > 确保 1.1 中的一个网关和六个服务正常启动以提供正常的接口功能
 
-1. 克隆仓库：使用 `Git` 克隆仓库或直接下载仓库压缩包到您的计算机：[https://github.com/springbear2020/course-frontend](https://github.com/springbear2020/course-frontend)
+1. 克隆仓库：使用 `Git` 克隆仓库或直接下载仓库压缩包到您的计算机：[https://github.com/springbear2020/atguigu-course-frontend](https://github.com/springbear2020/atguigu-course-frontend)
 2. 打开工程：使用 `VS Code` 打开克隆的仓库或解压的工程文件，而后在控制台使用 `npm install` 命令安装工程所需依赖
 3. 修改配置信息：
    - `.env.development`：修改该文件中的 `VUE_APP_BASE_API` 地址信息为 1.1 步骤中配置的网关地址
@@ -106,7 +111,7 @@
 >
 > 注：微信公众号相关的配置中 ”坑“ 较多步骤较为繁琐，若有疑问可邮件咨询笔者：springbear2020@163.com
 
-1. 克隆仓库：使用 `Git` 克隆仓库或直接下载仓库压缩包到您的计算机：[https://github.com/springbear2020/course-mobile](https://github.com/springbear2020/course-mobile)
+1. 克隆仓库：使用 `Git` 克隆仓库或直接下载仓库压缩包到您的计算机：[https://github.com/springbear2020/atguigu-course-mobile](https://github.com/springbear2020/atguigu-course-mobile)
 2. 打开工程：使用 `VS Code` 打开克隆的仓库或解压的工程文件，而后在控制台使用 `npm install` 命令安装工程所需依赖
 3. 修改配置信息：
    - `store/index.js`：修改 state 中配置的 baseURL 为内网穿透工具中的域名地址，该域名地址代理监听服务器的网关端口
